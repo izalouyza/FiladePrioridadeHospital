@@ -43,6 +43,7 @@ void enfileirar(Fila *f, paciente p) {
 
     // Inserir o paciente na fila
     f->pacientes[f->rear] = p;
+    f->pacientes[f->rear].num_ficha = f->rear + 1; // Atribui o número da ficha
     f->rear++;
     printf("\n>> Paciente adicionado à fila com sucesso.\n");
 }
@@ -68,11 +69,17 @@ void organizarFilaPorUrgencia(Fila *f) {
 paciente desenfileirar(Fila *f) {
     if (isEmpty(f)) {
         printf("\n>> Fila vazia. Não há pacientes para serem removidos.\n");
-        paciente vazio = {"", 0, 0, 0, 0, 0}; // Retorna um paciente vazio
+        paciente vazio = {0, "", 0, 0, 0, 0}; // Retorna um paciente vazio
         return vazio;
     }
     paciente removido = f->pacientes[f->front];
     f->front++;
+
+    // Atualiza os números das fichas dos pacientes restantes
+    for (int i = f->front; i < f->rear; i++) {
+        f->pacientes[i].num_ficha = i + 1; // Atualiza o número da ficha
+    }
+
     return removido;
 }
 
@@ -126,9 +133,18 @@ void coletarUrgencia(paciente *p) {
     printf("\nInforme a urgência do paciente: ");
     
     while (1) {
-        scanf("%d", &p->urgencia);
+        // Verifica se a entrada é um número
+        if (scanf("%d", &p->urgencia) != 1) {
+            printf("\n>> Entrada inválida. Por favor, insira um número entre 1 e 5.\n");
+            // Limpa o buffer de entrada
+            while (getchar() != '\n'); // Consome até a nova linha
+            printf("Informe a urgência do paciente: ");
+            continue; // Volta para o início do loop
+        }
+
+        // Verifica se o número está dentro do intervalo permitido
         if (p->urgencia >= 1 && p->urgencia <= 5) {
-            break;
+            break; // Urgência válida, sai do loop
         } else {
             printf("\n>> Opção inválida. Por favor, tente novamente.\n");
             printf("Informe a urgência do paciente: ");
@@ -158,7 +174,14 @@ int main() {
         printf("\n============================== Sistema de atendimento hospitalar ==============================\n\n");
         printf("[1] Adicionar paciente à fila \n[2] Exibir fila de pacientes \n[3] Remover paciente da fila \n[4] Sair \n");
         printf("\n>> Escolha uma opção: ");
-        scanf("%d", &opc);
+        
+        // Verifica se a entrada é um número
+        if (scanf("%d", &opc) != 1) {
+            printf("\n>> Entrada inválida. Por favor, insira um número entre 1 e 4.\n");
+            // Limpa o buffer de entrada
+            while (getchar() != '\n'); // Consome até a nova linha
+            continue; // Volta para o início do loop
+        }
         setbuf(stdin, NULL);
 
         switch (opc) {
