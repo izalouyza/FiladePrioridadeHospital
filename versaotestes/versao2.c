@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <ctype.h> // Para a função isdigit
 
 typedef struct {
-    char nome[100]; // nome completo do paciente
+    char nome[100]; 
     int idade;
     int sexo; // [1]M ou [2]F
     int convenio; // [1] SUS [2] Particular
@@ -25,11 +26,11 @@ void inicializarFila(Fila *f, int capacidade) {
     f->rear = 0;
 }
 
-int isFull(Fila *f) {
+int isFull(const Fila *f) {
     return (f->rear == f->capac);
 }
 
-int isEmpty(Fila *f) {
+int isEmpty(const Fila *f) {
     return (f->front == f->rear);
 }
 
@@ -55,45 +56,46 @@ paciente desenfileirar(Fila *f) {
         return vazio;
     }
     paciente removido = f->pacientes[f->front];
-    for (int i = f->front; i < f->rear - 1; i++) {
-        f->pacientes[i] = f->pacientes[i + 1];
-    }
-    f->rear--;
+    f->front++;
     return removido;
 }
 
-void exibirFila(Fila *f) {
+void exibirPaciente(const paciente *p) {
+    printf("\n----- Paciente -----\n");
+    printf("Nome: %s\n", p->nome);
+    printf("Idade: %d\n", p->idade);
+    printf("Sexo: ");
+    if (p->sexo == 1) {
+        printf("Masculino\n");
+    } else {
+        printf("Feminino\n");
+    }
+    
+    printf("Convênio: ");
+    if (p->convenio == 1) {
+        printf("SUS\n");
+    } else {
+        printf("Particular\n");
+    }
+    
+    switch (p->urgencia) {
+        case 0: printf("Urgência: Azul (Não Urgente)\n"); break;
+        case 1: printf("Urgência: Verde (Pouco Urgente)\n"); break;
+        case 2: printf("Urgência: Amarelo (Urgente)\n"); break;
+        case 3: printf("Urgência: Laranja (Muito Urgente)\n"); break;
+        case 4: printf("Urgência: Vermelho (Emergência)\n"); break;
+    }
+    printf("-----------------------\n");
+}
+
+void exibirFila(const Fila *f) {
     if (isEmpty(f)) {
         printf("\n>> Fila vazia.\n");
         return;
     }
     printf("\n======================= Fila de Pacientes =======================\n");
     for (int i = f->front; i < f->rear; i++) {
-        printf("\n----- Paciente %d -----\n", i + 1);
-        printf("Nome: %s\n", f->pacientes[i].nome);
-        printf("Idade: %d\n", f->pacientes[i].idade);
-        printf("Sexo: ");
-        if (f->pacientes[i].sexo == 1) {
-            printf("Masculino\n");
-        } else {
-            printf("Feminino\n");
-        }
-        
-        printf("Convênio: ");
-        if (f->pacientes[i].convenio == 1) {
-            printf("SUS\n");
-        } else {
-            printf("Particular\n");
-        }
-        
-        switch (f->pacientes[i].urgencia) {
-            case 0: printf("Urgência: Azul (Não Urgente)\n"); break;
-            case 1: printf("Urgência: Verde (Pouco Urgente)\n"); break;
-            case 2: printf("Urgência: Amarelo (Urgente)\n"); break;
-            case 3: printf("Urgência: Laranja (Muito Urgente)\n"); break;
-            case 4: printf("Urgência: Vermelho (Emergência)\n"); break;
-        }
-        printf("-----------------------\n");
+        exibirPaciente(&f->pacientes[i]);
     }
 }
 
@@ -115,6 +117,15 @@ void coletarUrgencia(paciente *p) {
         }
     }
     setbuf(stdin, NULL);
+}
+
+int nomeValido(const char *nome) {
+    for (int i = 0; nome[i] != '\0'; i++) {
+        if (isdigit(nome[i])) {
+            return 0; // Nome inválido se contém dígitos
+        }
+    }
+    return 1; // Nome válido
 }
 
 int main() {
@@ -139,16 +150,32 @@ int main() {
                 fgets(p.nome, sizeof(p.nome), stdin);
                 p.nome[strcspn(p.nome, "\n")] = 0;
 
+                // Validação do nome
+                while (!nomeValido(p.nome)) {
+                    printf("Nome inválido. O nome não pode conter números. Por favor, insira novamente: ");
+                    fgets(p.nome, sizeof(p.nome), stdin);
+                    p.nome[strcspn(p.nome, "\n")] = 0;
+                }
+
                 printf(">> Idade do paciente: ");
-                scanf("%d", &p.idade);
+                while (scanf("%d", &p.idade) != 1 || p.idade < 0) {
+                    printf("Idade inválida. Por favor, insira uma idade válida: ");
+                    setbuf(stdin, NULL);
+                }
                 setbuf(stdin, NULL);
 
                 printf(">> Sexo do paciente: \n[1] Masculino \n[2] Feminino \n");
-                scanf("%d", &p.sexo);
+                while (scanf("%d", &p.sexo) != 1 || (p.sexo != 1 && p.sexo != 2)) {
+                    printf("Opção inválida. Por favor, escolha um sexo válido: ");
+                    setbuf(stdin, NULL);
+                }
                 setbuf(stdin, NULL);
 
                 printf(">> Convênio do paciente: \n[1] SUS \n[2] Particular\n");
-                scanf("%d", &p.convenio);
+                while (scanf("%d", &p.convenio) != 1 || (p.convenio != 1 && p.convenio != 2)) {
+                    printf("Opção inválida. Por favor, escolha um convênio válido: ");
+                    setbuf(stdin, NULL);
+                }
                 setbuf(stdin, NULL);
 
                 coletarUrgencia(&p);
