@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,42 +15,42 @@ typedef struct {
 
 typedef struct {
     paciente *pacientes;
-    int front;
-    int rear;
-    int capac;
+    int frente;
+    int tras;
+    int capacidade;
 } Fila;
 
 void inicializarFila(Fila *f, int capacidade) {
-    f->capac = capacidade;
+    f->capacidade = capacidade;
     f->pacientes = malloc(capacidade * sizeof(paciente));
-    f->front = 0;
-    f->rear = 0;
+    f->frente = 0;
+    f->tras = 0;
 }
 
-int isFull(const Fila *f) {
-    return (f->rear == f->capac);
+int estaCheia(const Fila *f) {
+    return (f->tras == f->capacidade);
 }
 
-int isEmpty(const Fila *f) {
-    return (f->front == f->rear);
+int estaVazia(const Fila *f) {
+    return (f->frente == f->tras);
 }
 
 void enfileirar(Fila *f, paciente p) {
-    if (isFull(f)) {
+    if (estaCheia(f)) {
         printf("\n>> Fila cheia. Não é possível adicionar mais pacientes.\n");
         return;
     }
 
     // Inserir o paciente na fila
-    f->pacientes[f->rear] = p;
-    f->pacientes[f->rear].num_ficha = f->rear + 1; // Atribui o número da ficha
-    f->rear++;
+    f->pacientes[f->tras] = p;
+    f->pacientes[f->tras].num_ficha = f->tras + 1; // Atribui o número da ficha
+    f->tras++;
     printf("\n>> Paciente adicionado à fila com sucesso.\n");
 }
 
 void organizarFilaPorUrgencia(Fila *f) {
-    for (int i = f->front; i < f->rear - 1; i++) {
-        for (int j = i + 1; j < f->rear; j++) {
+    for (int i = f->frente; i < f->tras - 1; i++) {
+        for (int j = i + 1; j < f->tras; j++) {
             if (f->pacientes[i].urgencia < f->pacientes[j].urgencia) {
                 // Troca os pacientes de lugar e dá a prioridade para aquele com mais urgência
                 paciente temp = f->pacientes[i];
@@ -62,22 +61,22 @@ void organizarFilaPorUrgencia(Fila *f) {
     }
 
     // Atribui os números das fichas após a ordenação
-    for (int i = f->front; i < f->rear; i++) {
+    for (int i = f->frente; i < f->tras; i++) {
         f->pacientes[i].num_ficha = i + 1; // O número da ficha começa em 1
     }
 }
 
 paciente desenfileirar(Fila *f) {
-    if (isEmpty(f)) {
+    if (estaVazia(f)) {
         printf("\n>> Fila vazia. Não há pacientes para serem removidos.\n");
         paciente vazio = {0, "", 0, 0, 0, 0}; // Retorna um paciente vazio
         return vazio;
     }
-    paciente removido = f->pacientes[f->front];
-    f->front++;
+    paciente removido = f->pacientes[f->frente];
+    f->frente++;
 
     // Atualiza os números das fichas dos pacientes restantes
-    for (int i = f->front; i < f->rear; i++) {
+    for (int i = f->frente; i < f->tras; i++) {
         f->pacientes[i].num_ficha = i + 1; // Atualiza o número da ficha
     }
 
@@ -117,7 +116,7 @@ void exibirPaciente(const paciente *p) {
 void alterarDadosPaciente(Fila *f) {
     printf("\n================================= Alterar Dados de Paciente ===================================\n\n");
     // Verifica se a fila está vazia
-    if (isEmpty(f)) {
+    if (estaVazia(f)) {
         printf(">> A fila está vazia. Não há pacientes para alterar.\n");
         return;
     }
@@ -126,7 +125,7 @@ void alterarDadosPaciente(Fila *f) {
     
     while (1) {
         // Verifica se a entrada é um número inteiro e positivo
-        if (scanf("%d", &num_ficha) != 1 || num_ficha <= 0 || num_ficha > f->rear) {
+        if (scanf("%d", &num_ficha) != 1 || num_ficha <= 0 || num_ficha > f->tras) {
             printf(">> Número de ficha inválido. Deve ser um número inteiro positivo. Por favor, tente novamente.\n");
             printf(">> Informe o número da ficha do paciente que deseja alterar: ");
             setbuf(stdin, NULL); // Limpa o buffer
@@ -183,12 +182,12 @@ void alterarDadosPaciente(Fila *f) {
 }
 
 void exibirFila(const Fila *f) {
-    if (isEmpty(f)) {
+    if (estaVazia(f)) {
         printf("\n>> Fila vazia. Não há pacientes para serem exibidos.\n");
         return;
     }
     printf("\n====================================== Fila de Pacientes ======================================\n\n");
-    for (int i = f->front; i < f->rear; i++) {
+    for (int i = f->frente; i < f->tras; i++) {
         exibirPaciente(&f->pacientes[i]);
     }
 }
@@ -329,4 +328,3 @@ int main() {
         }
     }
 }
-
