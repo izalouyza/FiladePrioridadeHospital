@@ -5,7 +5,7 @@
 #include <ctype.h> // Para a função isdigit
 
 typedef struct {
-    char nome[100]; // nome completo do paciente
+    char nome[100]; 
     int idade;
     int sexo; // [1]M ou [2]F
     int convenio; // [1] SUS [2] Particular
