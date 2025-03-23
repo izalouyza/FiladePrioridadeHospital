@@ -17,30 +17,7 @@ O sistema de Fila de Prioridade de Hospital terá as seguintes funcionalidades:
 
 ## 2. Como o sistema funciona?
 
-O usuário terá acesso a uma interface interativa onde poderá visualizar as funcionalidades disponíveis e interagir com o sistema. 
-
-### 2.1 Exemplo de Fluxo de Uso
-
-- **Cadastre alguns pacientes na fila** (opção 1).  
-- **Exiba a fila de pacientes** para verificar quais pacientes estão aguardando atendimento (opção 2).  
--  **Remova um paciente da fila** após o atendimento (opção 3).  
-- **Acompanhe a fila de pacientes e verifique a ordem de atendimento** (opção 2).  
-- **Ao finalizar, saia do sistema** (opção 4).  
-
-### 2.2 Estrutura de pastas
-
-```
-
-
-```
-
-
-### 2.3 Estruturas de dados utilizadas
-
-
-### 2.4 Funcionamento do sistema
-
-O sistema de Fila de Prioridade de Hospital permite que o usuário realize as seguintes ações:
+O usuário terá acesso a uma interface interativa onde poderá visualizar as funcionalidades disponíveis e interagir com o sistema. Dessa forma, o sistema de Fila de Prioridade de Hospital permite que o usuário realize as seguintes ações:
 
 ```
 ================= Sistema de atendimento hospitalar ================= 
@@ -55,7 +32,27 @@ O sistema de Fila de Prioridade de Hospital permite que o usuário realize as se
 - **Adicionar paciente à fila**: o sistema permite cadastrar um novo paciente na fila de atendimento.  
 - **Exibir fila de pacientes**: o sistema exibe todos os pacientes atualmente na fila de espera.  
 - **Remover paciente da fila**: o sistema permite remover um paciente da fila com base na ordem de prioridade.  
-- **Sair**: o usuário encerra a execução do sistema.  
+- **Sair**: o usuário encerra a execução do sistema.
+  
+### 2.1 Exemplo de Fluxo de Uso
+
+- **Cadastre alguns pacientes na fila** (opção 1).  
+- **Exiba a fila de pacientes** para verificar quais pacientes estão aguardando atendimento (opção 2).  
+-  **Remova um paciente da fila** após o atendimento (opção 3).  
+- **Acompanhe a fila de pacientes e verifique a ordem de atendimento** (opção 2).  
+- **Ao finalizar, saia do sistema** (opção 4).
+
+### 2.2 Estrutura de pastas
+
+```
+
+
+```
+
+
+### 2.3 Estruturas de dados utilizadas
+
+
 
 ### 3. Como compilar e executar o sistema
 
