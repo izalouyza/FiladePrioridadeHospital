@@ -316,7 +316,7 @@ int main() {
                     }
                 }
                 if (opcSair == 1) {
-                    printf("\n>> Obrigado, volte sempre.\n");
+                    printf(">> Sistema encerrado. Agradecemos pela utilização!\n");
                     free(fila.pacientes); // Libera a memória alocada para a fila
                     return 0; // Encerra o programa
                 }
