@@ -1,6 +1,8 @@
 # Fila de Prioridade de Hospital
 
-Esse repositório refere-se ao trabalho da terceira unidade da disciplina de Estrutura de Dados I, ministrada pelo professor George Felipe Fernandes Vieira. O projeto tem como objetivo o desenvolvimento de um sistema de gerenciamento de prioridade de atendimento hospitalar, permitindo o cadastramento de pacientes e a organização do fluxo de atendimento de acordo com uma ordem de prioridade. Dessa forma, o sistema visa garantir um atendimento mais eficiente aos pacientes e, consequentemente, auxiliar na administração de um hospital.
+Este repositório refere-se ao trabalho da terceira unidade da disciplina de Estruturas de Dados I, ministrada pelo professor George Felipe Fernandes Vieira. O projeto tem como objetivo a implementação de um sistema de gerenciamento de prioridade de atendimento hospitalar, visando otimizar o fluxo de atendimento por meio de uma fila de prioridades.
+
+O sistema permitirá o cadastramento de pacientes e a organização do atendimento com base em critérios de urgência, garantindo que aqueles com maior necessidade sejam atendidos primeiro. Dessa forma, busca-se tornar o processo de atendimento mais eficiente, reduzindo o tempo de espera para casos prioritários e contribuindo para uma melhor administração hospitalar.
 
 ## 1. Funcionalidades
 
