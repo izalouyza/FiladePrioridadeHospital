@@ -191,6 +191,10 @@ void alterarDadosPaciente(Fila *f) {
     setbuf(stdin, NULL);
 
     coletarUrgencia(p);  // Atualiza a urgência do paciente
+
+    // Organiza a fila após a alteração da urgência
+    organizarFilaPorUrgencia(f);
+
     printf("\n>> Dados do paciente %s atualizados com sucesso.\n", p->nome);
 }
 
