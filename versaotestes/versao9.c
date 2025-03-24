@@ -9,7 +9,7 @@ typedef struct {
     int num_ficha; // Número da ficha do paciente na sequência
     char nome[100]; 
     int idade; // Idade em anos do paciente
-    int sexo; // [1]Masculino ou [2]Feminino
+    int sexo; // [1] Masculino ou [2] Feminino
     int convenio; // [1] SUS [2] Particular
     int urgencia; // [1] Azul, [2] Verde, [3] Amarelo, [4] Laranja, [5] Vermelho
 } paciente;
@@ -17,8 +17,8 @@ typedef struct {
 // Estrutura para a fila de pacientes
 typedef struct {
     paciente *pacientes; // Ponteiro para um array de pacientes
-    int frente; // Índice do primeiro paciente na fila
-    int fim; // Índice do próximo espaço livre na fila
+    int inicio; // Índice do início da fila
+    int fim; // Índice do fim da fila
     int capacidade; // Capacidade máxima da fila
 } Fila;
 
@@ -30,7 +30,7 @@ int nomeValido(const char *nome);
 void inicializarFila(Fila *f, int capacidade) {
     f->capacidade = capacidade;
     f->pacientes = malloc(capacidade * sizeof(paciente)); // Aloca memória para os pacientes
-    f->frente = 0; // Inicializa a frente da fila
+    f->inicio = 0; // Inicializa o início da fila
     f->fim = 0; // Inicializa o final da fila
 }
 
@@ -41,7 +41,7 @@ int estaCheia(const Fila *f) {
 
 // Verifica se a fila está vazia
 int estaVazia(const Fila *f) {
-    return (f->frente == f->fim);
+    return (f->inicio == f->fim);
 }
 
 // Adiciona um paciente à fila
@@ -60,7 +60,7 @@ void enfileirar(Fila *f, paciente p) {
 
 // Organiza a fila de pacientes por urgência
 void organizarFilaPorUrgencia(Fila *f) {
-    for (int i = f->frente; i < f->fim - 1; i++) {
+    for (int i = f->inicio; i < f->fim - 1; i++) {
         for (int j = i + 1; j < f->fim; j++) {
             if (f->pacientes[i].urgencia < f->pacientes[j].urgencia) {
                 // Troca os pacientes de lugar e dá a prioridade para aquele com mais urgência
@@ -72,7 +72,7 @@ void organizarFilaPorUrgencia(Fila *f) {
     }
 
     // Atribui os números das fichas após a ordenação
-    for (int i = f->frente; i < f->fim; i++) {
+    for (int i = f->inicio; i < f->fim; i++) {
         f->pacientes[i].num_ficha = i + 1; // O número da ficha começa em 1
     }
 }
@@ -84,11 +84,11 @@ paciente desenfileirar(Fila *f) {
         paciente vazio = {0, "", 0, 0, 0, 0}; // Retorna um paciente vazio
         return vazio;
     }
-    paciente removido = f->pacientes[f->frente];
-    f->frente++;
+    paciente removido = f->pacientes[f->inicio];
+    f->inicio++;
 
     // Atualiza os números das fichas dos pacientes restantes
-    for (int i = f->frente; i < f->fim; i++) {
+    for (int i = f->inicio; i < f->fim; i++) {
         f->pacientes[i].num_ficha = i + 1; // Atualiza o número da ficha
     }
 
@@ -201,7 +201,7 @@ void exibirFila(const Fila *f) {
         return;
     }
     printf("\n====================================== Fila de Pacientes ======================================\n\n");
-    for (int i = f->frente; i < f->fim; i++) {
+    for (int i = f->inicio; i < f->fim; i++) {
         exibirPaciente(&f->pacientes[i]); // Exibe cada paciente
     }
 }
