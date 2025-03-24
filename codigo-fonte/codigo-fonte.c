@@ -148,8 +148,8 @@ void alterarDadosPaciente(Fila *f) {
     }
     setbuf(stdin, NULL);
     
-    int index = num_ficha - 1; // Ajusta para o índice da fila (começa do 0)
-    paciente *p = &f->pacientes[index];
+    int indice = num_ficha - 1; // Ajusta para o índice da fila (começa do 0)
+    paciente *p = &f->pacientes[indice];
     
     printf("\n>> Atualizando os dados do paciente Nº %d. Preencha com as informações do paciente:\n", p->num_ficha);
 
