@@ -8,30 +8,35 @@ O sistema permitirá o cadastramento de pacientes e a organização do atendimen
 
 O sistema de Fila de Prioridade de Hospital terá as seguintes funcionalidades:
 
-| Funcionalidade              | Descrição                                                   |  
-|-----------------------------|-------------------------------------------------------------|  
-| **Adicionar Paciente à Fila**   | Permite cadastrar um novo paciente na fila de atendimento. |  
-| **Exibir Fila de Pacientes**    | Exibe todos os pacientes atualmente na fila de espera.     |  
-| **Remover Paciente da Fila**    | Remove um paciente da fila com base na ordem de prioridade.|  
-| **Sair**                        | Encerra a execução do sistema.
+| Funcionalidade                 | Descrição                                                   |  
+|---------------------------------|-------------------------------------------------------------|  
+| **Adicionar paciente à fila**   | Permite cadastrar um novo paciente na fila de atendimento. |  
+| **Exibir fila de pacientes**    | Exibe todos os pacientes atualmente na fila de espera.     |  
+| **Remover paciente da fila**    | Remove um paciente da fila com base na ordem de prioridade.|  
+| **Alterar dados de paciente**   | Permite modificar informações de um paciente já cadastrado na fila. |  
+| **Sair**                        | Encerra a execução do sistema.   
 
 ## 2. Como o sistema funciona?
 
 O usuário terá acesso a uma interface interativa onde poderá visualizar as funcionalidades disponíveis e interagir com o sistema. Dessa forma, o sistema de Fila de Prioridade de Hospital permite que o usuário realize as seguintes ações:
 
 ```
-================= Sistema de atendimento hospitalar ================= 
-[1] Adicionar paciente à fila 
-[2] Exibir fila de pacientes 
-[3] Remover paciente da fila 
-[4] Sair 
->> Opção: 
+============================== Sistema de atendimento hospitalar ==============================
+
+[1] Adicionar paciente à fila
+[2] Exibir fila de pacientes
+[3] Remover paciente da fila
+[4] Alterar dados de paciente
+[5] Sair
+
+>> Escolha uma opção:
 
 ```
 #### Menu principal do sistema:
 - **Adicionar paciente à fila**: o sistema permite cadastrar um novo paciente na fila de atendimento.  
 - **Exibir fila de pacientes**: o sistema exibe todos os pacientes atualmente na fila de espera.  
-- **Remover paciente da fila**: o sistema permite remover um paciente da fila com base na ordem de prioridade.  
+- **Remover paciente da fila**: o sistema permite remover um paciente da fila com base na ordem de prioridade.
+- **Alterar dados de paciente**: o sistema permite modificar informações de um paciente já cadastrado na fila.
 - **Sair**: o usuário encerra a execução do sistema.
   
 ### 2.1 Exemplo de Fluxo de Uso
@@ -39,20 +44,22 @@ O usuário terá acesso a uma interface interativa onde poderá visualizar as fu
 - **Cadastre alguns pacientes na fila** (opção 1).  
 - **Exiba a fila de pacientes** para verificar quais pacientes estão aguardando atendimento (opção 2).  
 -  **Remova um paciente da fila** após o atendimento (opção 3).  
-- **Acompanhe a fila de pacientes e verifique a ordem de atendimento** (opção 2).  
+- **Acompanhe a fila de pacientes e verifique a ordem de atendimento** (opção 2).
+- **Se necessário, atualize o cadastro de um paciente** (opção 4).
 - **Ao finalizar, saia do sistema** (opção 4).
 
 ### 2.2 Estrutura de pastas
 
 ```
-
+FiladePrioridadeHospital/
+│
+├── codigo-fonte/
+│   ├── output/
+│   └── codigo-fonte.c
+│
+└── README.md
 
 ```
-
-
-### 2.3 Estruturas de dados utilizadas
-
-
 
 ### 3. Como compilar e executar o sistema
 
@@ -66,22 +73,25 @@ Para compilar e executar o sistema, siga os passos abaixo:
 git clone https://github.com/whorshe/FiladePrioridadeHospital
 ```
 
-3. 
+3. Acesse a pasta onde o código está:
    
 ```
-
+cd FiladePrioridadeHospital
+```
+```
+cd codigo-fonte
 ```
 
 4. Compile o programa:
 
 ```
-
+gcc -o sistemahospital codigo-fonte.c
 ```
 
 5. Execute o programa:
    
 ```
-
+.\sistemahospital
 ```
 
 ### 4. Participantes
