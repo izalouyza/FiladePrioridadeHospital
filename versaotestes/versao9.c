@@ -263,7 +263,7 @@ int main() {
         
         // Verifica se a entrada é um número
         if (scanf("%d", &opc) != 1) {
-            printf("\n>> Entrada inválida. Por favor, insira um número entre 1 e 4.\n");
+            printf("\n>> Entrada inválida. Por favor, insira um número entre 1 e 5.\n");
             // Limpa o buffer de entrada
             while (getchar() != '\n'); // Consome até a nova linha
             continue; // Volta para o início do loop
