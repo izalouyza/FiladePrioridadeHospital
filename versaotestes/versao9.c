@@ -18,7 +18,7 @@ typedef struct {
 typedef struct {
     paciente *pacientes; // Ponteiro para um array de pacientes
     int frente; // Índice do primeiro paciente na fila
-    int tras; // Índice do próximo espaço livre na fila
+    int fim; // Índice do próximo espaço livre na fila
     int capacidade; // Capacidade máxima da fila
 } Fila;
 
@@ -31,17 +31,17 @@ void inicializarFila(Fila *f, int capacidade) {
     f->capacidade = capacidade;
     f->pacientes = malloc(capacidade * sizeof(paciente)); // Aloca memória para os pacientes
     f->frente = 0; // Inicializa a frente da fila
-    f->tras = 0; // Inicializa o final da fila
+    f->fim = 0; // Inicializa o final da fila
 }
 
 // Verifica se a fila está cheia
 int estaCheia(const Fila *f) {
-    return (f->tras == f->capacidade);
+    return (f->fim == f->capacidade);
 }
 
 // Verifica se a fila está vazia
 int estaVazia(const Fila *f) {
-    return (f->frente == f->tras);
+    return (f->frente == f->fim);
 }
 
 // Adiciona um paciente à fila
@@ -52,16 +52,16 @@ void enfileirar(Fila *f, paciente p) {
     }
 
     // Inserir o paciente na fila
-    f->pacientes[f->tras] = p;
-    f->pacientes[f->tras].num_ficha = f->tras + 1; // Atribui o número da ficha
-    f->tras++;
+    f->pacientes[f->fim] = p;
+    f->pacientes[f->fim].num_ficha = f->fim + 1; // Atribui o número da ficha
+    f->fim++;
     printf("\n>> Paciente adicionado à fila com sucesso.\n");
 }
 
 // Organiza a fila de pacientes por urgência
 void organizarFilaPorUrgencia(Fila *f) {
-    for (int i = f->frente; i < f->tras - 1; i++) {
-        for (int j = i + 1; j < f->tras; j++) {
+    for (int i = f->frente; i < f->fim - 1; i++) {
+        for (int j = i + 1; j < f->fim; j++) {
             if (f->pacientes[i].urgencia < f->pacientes[j].urgencia) {
                 // Troca os pacientes de lugar e dá a prioridade para aquele com mais urgência
                 paciente temp = f->pacientes[i];
@@ -72,7 +72,7 @@ void organizarFilaPorUrgencia(Fila *f) {
     }
 
     // Atribui os números das fichas após a ordenação
-    for (int i = f->frente; i < f->tras; i++) {
+    for (int i = f->frente; i < f->fim; i++) {
         f->pacientes[i].num_ficha = i + 1; // O número da ficha começa em 1
     }
 }
@@ -88,7 +88,7 @@ paciente desenfileirar(Fila *f) {
     f->frente++;
 
     // Atualiza os números das fichas dos pacientes restantes
-    for (int i = f->frente; i < f->tras; i++) {
+    for (int i = f->frente; i < f->fim; i++) {
         f->pacientes[i].num_ficha = i + 1; // Atualiza o número da ficha
     }
 
@@ -138,7 +138,7 @@ void alterarDadosPaciente(Fila *f) {
     
     while (1) {
         // Verifica se a entrada é um número inteiro e positivo
-        if (scanf("%d", &num_ficha) != 1 || num_ficha <= 0 || num_ficha > f->tras) {
+        if (scanf("%d", &num_ficha) != 1 || num_ficha <= 0 || num_ficha > f->fim) {
             printf(">> Número de ficha inválido. Deve ser um número inteiro positivo. Por favor, tente novamente.\n");
             printf(">> Informe o número da ficha do paciente que deseja alterar: ");
             setbuf(stdin, NULL); // Limpa o buffer
@@ -201,7 +201,7 @@ void exibirFila(const Fila *f) {
         return;
     }
     printf("\n====================================== Fila de Pacientes ======================================\n\n");
-    for (int i = f->frente; i < f->tras; i++) {
+    for (int i = f->frente; i < f->fim; i++) {
         exibirPaciente(&f->pacientes[i]); // Exibe cada paciente
     }
 }
