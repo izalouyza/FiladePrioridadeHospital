@@ -86,7 +86,7 @@ Para compilar e executar o sistema, siga os passos abaixo:
 2. Clone o repositório do projeto:
 
 ```
-git clone https://github.com/liyuhi/FiladePrioridadeHospital
+git clone https://github.com/izalouyza/FiladePrioridadeHospital
 ```
 
 3. Acesse a pasta onde o código está:
