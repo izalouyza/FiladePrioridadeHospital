@@ -4,6 +4,8 @@ Este repositório refere-se ao trabalho da terceira unidade da disciplina de Est
 
 O sistema permitirá o cadastramento de pacientes e a organização do atendimento com base em critérios de urgência, garantindo que aqueles com maior necessidade sejam atendidos primeiro. Dessa forma, busca-se tornar o processo de atendimento mais eficiente, reduzindo o tempo de espera para casos prioritários e contribuindo para uma melhor administração hospitalar.
 
+![Linguagem](https://img.shields.io/badge/linguagem-C-blue)
+![Último commit](https://img.shields.io/github/last-commit/izalouyza/FiladePrioridadeHospital)
 ---
 ## 👨‍👧‍👧 Autores
 
