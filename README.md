@@ -72,6 +72,7 @@ O usuário terá acesso a uma interface interativa onde poderá visualizar as fu
 
 ```
 FiladePrioridadeHospital/
+src/
 │
 ├── codigo-fonte/
 │   ├── output/
@@ -96,7 +97,7 @@ git clone https://github.com/izalouyza/FiladePrioridadeHospital
 3. Acesse a pasta onde o código está:
    
 ```
-cd FiladePrioridadeHospital
+cd FiladePrioridadeHospital/src
 ```
 ```
 cd codigo-fonte
